@@ -38,11 +38,15 @@ You take the result of each character snd multiply it by 31 and then add it to t
 public class HashTable {
    private ArrayList [] a;
    private int m;
+   private int size;
 
     public HashTable(int capacity){
       m =  capacity;
+      size = 0;
          a = new ArrayList[capacity];
-         for int i= 0
+         for (int i= 0; i<m; i++){
+             a[i] = new ArrayList();
+         }
     }
 
 
@@ -63,9 +67,12 @@ public class HashTable {
     //odd indexes of the arrayList are values
     public void put(String key, String value){
         int index = hashCode(key);
-
+size++;
        a[index].add(key);
-       a[index].add(value);}
+       a[index].add(value);
+
+if ((size/m)*100>80){resize(m*2);}
+    }
 
 
     //get hashes the key to get the index, and returns that element. Returns null if key not found.
@@ -79,6 +86,8 @@ public class HashTable {
         return r;
     }
 
+    public int getM(){return m;}
+    public int getSize(){return size;}
 
     //returns the unique int in the range of the [0, array length)
     private int hashCode(String key){
